@@ -14,7 +14,9 @@ import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
   plugins: [
-    VueRouter(),
+    VueRouter({
+      pagesDir: [],
+    }),
     Layouts({
       layoutsDir: 'src/core/layouts',
     }),

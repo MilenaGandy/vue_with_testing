@@ -1,7 +1,8 @@
+// src/pages/index.vue
 <template>
-  <HelloWorld />
+  <HomeView />
 </template>
 
 <script setup>
-  //
+import HomeView from '@/core/pages/HomeView.vue';
 </script>
