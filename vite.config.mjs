@@ -12,22 +12,29 @@ import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     VueRouter(),
-    Layouts(),
+    Layouts({
+      layoutsDir: 'src/core/layouts',
+    }),
     Vue({
       template: { transformAssetUrls },
     }),
-    // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     Vuetify({
       autoImport: true,
       styles: {
-        configFile: 'src/styles/settings.scss',
+        configFile: 'src/core/styles/settings.scss',
       },
     }),
-    Components(),
+    Components({
+      dirs: [
+        'src/core/components',
+        'src/modules',
+      ],
+      deep: true,
+      dts: 'src/components.d.ts',
+    }),
     Fonts({
       google: {
         families: [{
