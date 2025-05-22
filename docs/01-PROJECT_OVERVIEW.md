@@ -17,7 +17,7 @@ La funcionalidad desarrollada se centra en el módulo de "Personajes":
 
 2.  **Listado de Personajes (`CharactersListView`):**
     * Consume el endpoint `/characters` de la API para obtener y mostrar una lista de personajes.
-    * **Inyección de Datos "Fake"**: Para propósitos de demostración y para probar ciertos escenarios (como la paginación o la búsqueda de IDs no existentes en la API real), la lista de personajes obtenida de la API se complementa con 5 personajes "fake" generados localmente. Estos personajes tienen IDs en un rango >1000 para diferenciarlos de los IDs reales de la API (que son < 100).
+    * **Inyección de Datos "Fake"**: Para propósitos de demostración y para probar ciertos escenarios (como la paginación o la búsqueda de IDs no existentes en la API real), la lista de personajes obtenida de la API se complementa con 6 personajes "fake" generados localmente. Estos personajes tienen IDs en un rango >1000 para diferenciarlos de los IDs reales de la API (que son < 100).
     * Muestra indicadores de estado de carga mientras se obtienen los datos.
     * Cada personaje en la lista es clickeable y navega a su vista de detalle.
 
