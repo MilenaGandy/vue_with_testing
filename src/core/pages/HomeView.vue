@@ -26,15 +26,7 @@
             </v-card-title>
             <v-card-text>Ver lista de personajes</v-card-text>
           </v-card>
-        </v-col>
-        <v-col cols="12" sm="12" md="12">
-          <v-card hover to="/transformations" class="text-center py-3" color="yellow " dark>
-            <v-card-title>
-              <v-icon large left>mdi-creation</v-icon> Transformaciones
-            </v-card-title>
-            <v-card-text>Ver lista de transformaciones</v-card-text>
-          </v-card>
-        </v-col>
+        </v-col>        
       </v-row>
     </v-card>
   </v-container>
