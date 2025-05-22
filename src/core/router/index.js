@@ -8,7 +8,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { setupLayouts } from 'virtual:generated-layouts';
 import HomeView from '@/core/pages/HomeView.vue';
-import charactersRoutes from '@/modules/characters/router/routes.js';
+import charactersRoutes from '@/modules/characters/router/index.js';
 
 
 const coreRoutes = [
