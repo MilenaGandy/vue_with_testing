@@ -12,7 +12,6 @@ const routes = [
     path: '/characters/:id',
     name: 'CharacterDetail',
     component: CharacterDetailView,
-    props: true,
   },
 ];
 

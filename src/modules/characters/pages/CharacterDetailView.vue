@@ -5,13 +5,7 @@
         <p class="mt-4">Cargando detalles del personaje...</p>
       </div>
   
-      <v-alert v-else-if="error" type="error" prominent class="mt-5">
-        <template v-slot:prepend><v-icon>mdi-alert-circle-outline</v-icon></template>
-        <template v-slot:title>Error al Cargar Personaje</template>
-        {{ error }}
-      </v-alert>
-  
-      <v-card v-else-if="character" class="mt-5 pa-8 rounded-xl" elevation="10" color="indigo-lighten-5">
+      <v-card v-else-if="character" class="mt-5 pa-md-8 pa-4 rounded-xl" elevation="10" color="indigo-lighten-5">
         <v-row no-gutters>
           <v-col cols="12" md="4" sm="5">
             <v-img 
@@ -20,7 +14,7 @@
               cover 
               height="100%" 
               min-height="300"
-              class="rounded-s"
+              class="rounded-s-md" 
             >
               <template v-slot:placeholder>
                 <v-row class="fill-height ma-0" align="center" justify="center">
@@ -30,23 +24,23 @@
             </v-img>
           </v-col>
           <v-col cols="12" md="8" sm="7">
-            <v-card-title class="text-h4 mb-1 pt-4">{{ character.name }}</v-card-title>
-            <v-card-subtitle class="mb-3">
+            <v-card-title class="text-h4 mb-1 pt-4 px-4">{{ character.name }}</v-card-title>
+            <v-card-subtitle class="mb-3 px-4">
               <v-chip small color="indigo-lighten-1" class="mr-2">{{ character.race }}</v-chip>
               <v-chip small color="pink-lighten-1">{{ character.gender }}</v-chip>
             </v-card-subtitle>
   
-            <v-list density="compact" class="py-0">
+            <v-list density="compact" class="py-0" style="background-color: transparent;">
               <v-list-item class="px-4">
-                <v-list-item-title class="font-weight-bold">Ki:</v-list-item-title>
+                <v-list-item-title class="font-weight-bold fixed-width-title">Ki:</v-list-item-title>
                 <v-list-item-subtitle>{{ character.ki }}</v-list-item-subtitle>
               </v-list-item>
               <v-list-item class="px-4">
-                <v-list-item-title class="font-weight-bold">Max Ki:</v-list-item-title>
+                <v-list-item-title class="font-weight-bold fixed-width-title">Max Ki:</v-list-item-title>
                 <v-list-item-subtitle>{{ character.maxKi }}</v-list-item-subtitle>
               </v-list-item>
               <v-list-item class="px-4">
-                <v-list-item-title class="font-weight-bold">Afiliación:</v-list-item-title>
+                <v-list-item-title class="font-weight-bold fixed-width-title">Afiliación:</v-list-item-title>
                 <v-list-item-subtitle>{{ character.affiliation }}</v-list-item-subtitle>
               </v-list-item>
             </v-list>
@@ -56,6 +50,7 @@
             </v-card-text>
   
             <v-card-actions class="pa-4">
+              <v-spacer></v-spacer>
               <v-btn 
                 color="deep-purple-accent-3" 
                 variant="tonal"
@@ -80,53 +75,49 @@
   
   export default {
     name: 'CharacterDetailView',
-    props: {
-      // Asume que el router pasa el 'id' como prop
-      // En tu src/modules/characters/router/index.js, la ruta debe tener `props: true`
-      // { path: '/characters/:id', name: 'CharacterDetail', component: CharacterDetailView, props: true }
-      id: {
-        type: [String, Number],
-        required: true,
-      },
-    },
     computed: {
-      // Mapea estado del store a propiedades computadas locales.
-      // El primer argumento es el store, el segundo es un array de los nombres de las propiedades del estado o getters.
+      // Mapeamos el estado del store. Ya no necesitamos 'errorDetail' aquí
+      // si solo el diálogo global lo va a mostrar.
       ...mapState(useCharactersStore, {
-        character: 'character', // this.character será this.store.character
-        isLoading: 'isLoadingDetail', // this.isLoading será this.store.isLoadingDetail
-        error: 'errorDetail',     // this.error será this.store.errorDetail
+        character: 'character',
+        isLoading: 'isLoadingDetail',
+        // error: 'errorDetail', // Eliminado si no se usa en este template
       }),
+      characterIdFromRoute() {
+        return this.$route.params.id;
+      }
     },
     methods: {
-      // Mapea acciones del store a métodos locales.
-      // El primer argumento es el store, el segundo es un array de los nombres de las acciones.
       ...mapActions(useCharactersStore, ['fetchCharacterById', 'clearCharacterDetail']),
       
       async loadCharacterData() {
-        // `this.id` viene de las props del router
-        await this.fetchCharacterById(this.id);
+        const id = this.characterIdFromRoute;
+        if (id) {
+          await this.fetchCharacterById(id);
+        } else {
+          console.error("CharacterDetailView: No se encontró ID en los parámetros de la ruta.");
+          // Opcional: podrías usar el errorStore aquí si el ID no está en la ruta,
+          // ya que es un error de la aplicación/ruta y no de la API.
+          // const errorStore = useErrorStore();
+          // errorStore.showError("No se pudo determinar la identidad del personaje desde la ruta.", "Error de Navegación");
+        }
       },
       goBack() {
-        this.$router.push('/characters'); // O this.$router.go(-1) para ir a la página anterior en el historial
+        this.$router.push('/characters');
       }
     },
     created() {
-      // Limpiamos cualquier detalle de personaje anterior antes de cargar el nuevo.
-      // La acción `clearCharacterDetail` resetea character, errorDetail y isLoadingDetail.
       this.clearCharacterDetail(); 
       this.loadCharacterData();
     },
     watch: {
-      // Si el ID de la ruta (y por ende la prop 'id') cambia mientras este componente ya está montado
-      // (por ejemplo, navegando de un detalle de personaje a otro), necesitamos recargar los datos.
-      id(newId) {
-        this.clearCharacterDetail();
-        this.loadCharacterData(); // Llama a loadCharacterData con el nuevo ID (implícito por this.id)
+      characterIdFromRoute(newId, oldId) {
+        if (newId && newId !== oldId) {
+          this.clearCharacterDetail();
+          this.loadCharacterData();
+        }
       }
     },
-    // Es una buena práctica limpiar el estado del detalle cuando el componente se destruye
-    // para no mostrar datos antiguos brevemente si se vuelve a esta vista o a otra de detalle.
     beforeUnmount() {
       this.clearCharacterDetail();
     },
@@ -137,27 +128,21 @@
   .v-card-title {
     word-break: break-word;
   }
-  .v-list {
-    background-color: #E8EAF6; /* Asegúrate de que el color esté en formato hexadecimal */
-  }
-  .v-list-item-title {
-    min-width: 90px; /* Ajusta para alineación si es necesario */
-    flex: none; /* Para que el min-width tenga efecto */
+  /* .v-list { background-color: transparent; } */ /* Ya estaba así */
+  .fixed-width-title {
+    min-width: 90px; 
+    flex: none; 
     font-weight: bold;
   }
   .v-list-item-subtitle {
-    white-space: normal; /* Para que el texto largo se ajuste */
+    white-space: normal;
   }
-  .rounded-s { /* Para redondear solo el lado inicial de la imagen en md y superior */
-    border-top-left-radius: inherit;
-    border-bottom-left-radius: inherit;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  @media (max-width: 959px) { /* sm y xs de Vuetify */
-    .rounded-s {
-      border-top-right-radius: inherit; /* Redondea todos los bordes en pantallas pequeñas */
-      border-bottom-left-radius: 0; /* Quita el redondeo inferior izquierdo si la imagen está arriba */
+  .rounded-s-md {
+    @media (min-width: 960px) { /* md breakpoint */
+      border-top-left-radius: inherit !important;
+      border-bottom-left-radius: inherit !important;
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
     }
   }
   </style>

@@ -8,6 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AppErrorDialog: typeof import('./core/components/AppErrorDialog.vue')['default']
     AppFooter: typeof import('./core/components/AppFooter.vue')['default']
     CharacterCard: typeof import('./modules/characters/components/CharacterCard.vue')['default']
     CharacterDetailView: typeof import('./modules/characters/pages/CharacterDetailView.vue')['default']
