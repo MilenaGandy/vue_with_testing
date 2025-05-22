@@ -1,11 +1,20 @@
+// src/core/layouts/default.vue
 <template>
-  <v-main>
-    <router-view />
-  </v-main>
-
-  <AppFooter />
+  <v-app>
+    <v-main>
+      <router-view />
+    </v-main>
+    <AppErrorDialog />
+  </v-app>
 </template>
 
-<script setup>
-  //
+<script>
+import AppErrorDialog from '@/core/components/AppErrorDialog.vue';
+
+export default {
+  name: 'DefaultLayout',
+  components: {
+    AppErrorDialog,
+  },
+};
 </script>

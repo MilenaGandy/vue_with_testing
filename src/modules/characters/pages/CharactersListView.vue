@@ -8,16 +8,6 @@
       <p class="mt-4">Cargando personajes...</p>
     </div>
 
-    <v-alert v-else-if="error" type="error" prominent class="mt-5">
-      <template v-slot:prepend>
-        <v-icon>mdi-alert-circle-outline</v-icon>
-      </template>
-      <template v-slot:title>
-        Error al Cargar Personajes
-      </template>
-      {{ error }}
-    </v-alert>
-
     <v-row v-else-if="characters && characters.length > 0">
       <v-col
         v-for="character in characters"
@@ -50,7 +40,7 @@
       </v-col>
     </v-row>
 
-    <v-alert v-else type="info" class="mt-5">
+    <v-alert v-else-if="!isLoading" type="info" class="mt-5">
       No se encontraron personajes.
     </v-alert>
   </v-container>
@@ -58,59 +48,47 @@
 
 <script>
 import { useCharactersStore } from '@/modules/characters/store/charactersStore';
-// Opcional: si quieres usar mapState/mapActions con Options API de forma más directa
-// import { mapState, mapActions } from 'pinia';
+// Ya no es necesario mapState si no usamos this.error directamente en el template,
+// pero mantenerlo para las otras propiedades es consistente.
+// Si solo se usan 'characters' e 'isLoading', podrías quitar 'error' de mapState.
+import { mapState } from 'pinia'; 
 
 export default {
   name: 'CharactersListView',
-  data() {
-    // El estado local es mínimo o nulo, ya que la mayoría vendrá del store
-    return {
-      // Si necesitas manejar paginación localmente, podrías tener currentPage, itemsPerPage aquí
-    };
-  },
+  // data() ya estaba vacío y es correcto así.
   computed: {
-    // Mapea el estado del store a propiedades computadas
+    // Mantenemos el acceso directo a la instancia del store si se prefiere,
+    // o usamos mapState para las propiedades que sí se usan en el template.
     charactersStore() {
-      // Hacemos esto para tener una referencia al store en `this`
-      // y evitar llamar a useCharactersStore() múltiples veces en el template o métodos.
-      // Aunque es más idiomático en Options API usar mapState o accederlo directamente.
-      // Para este ejemplo, lo hacemos así para claridad en el acceso.
       return useCharactersStore();
     },
+    // Mapeamos solo las propiedades del store que la plantilla necesita directamente
     characters() {
       return this.charactersStore.characters;
     },
     isLoading() {
       return this.charactersStore.isLoadingList;
     },
-    error() {
-      return this.charactersStore.errorList;
-    },
-    // Podrías usar un getter del store si lo prefieres
+    // La propiedad computada 'error' que mapeaba a 'errorList' ya no es necesaria
+    // si el v-alert correspondiente fue eliminado y no se usa en otro lado del script.
+    // Si decides mantenerla para alguna lógica interna, está bien. Por ahora la quito para limpieza.
+    // error() {
+    //   return this.charactersStore.errorList;
+    // },
+
+    // Alternativa con mapState más concisa:
+    // ...mapState(useCharactersStore, ['characters', 'isLoadingList']),
+    // Si decides mantener 'errorList' para alguna lógica, la añadirías aquí:
     // ...mapState(useCharactersStore, ['characters', 'isLoadingList', 'errorList'])
   },
   methods: {
-    // Mapea acciones del store a métodos locales
-    // ...mapActions(useCharactersStore, ['fetchCharacters'])
-
-    // O define un método que llame a la acción del store
     async initialLoadCharacters() {
-      // Llama a la acción del store.
-      // Puedes pasar page y limit si tuvieras controles de paginación.
-      // El store usa page=1, limit=20 por defecto.
-      // La versión anterior que tenías llamaba con (1, 50)
       await this.charactersStore.fetchCharacters(1, 50);
     }
   },
   mounted() {
-    // Llama a la acción para cargar los personajes cuando el componente se monta
     this.initialLoadCharacters();
   },
-  // Opcional: si quieres limpiar algo al destruir el componente
-  // unmounted() {
-  //   this.charactersStore.errorList = null; // Ejemplo de limpieza
-  // }
 };
 </script>
 

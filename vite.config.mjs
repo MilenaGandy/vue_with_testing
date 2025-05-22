@@ -134,11 +134,9 @@ export default defineConfig({
       // o un objeto vacío si no, pero lo importante es que no da error.
       '^.+\\.(css|scss|sass|less|styl|stylus)$': 'identity-obj-proxy',
     },
-    server: {
-      deps: {
-        inline: ['vuetify'],
-      }
-    },
+    deps: {
+      inline: ['vuetify'],
+    }
   },
   optimizeDeps: {
     exclude: [
