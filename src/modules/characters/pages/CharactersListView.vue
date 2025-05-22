@@ -1,4 +1,4 @@
-// src/modules/characters/pages/index.vue (CharactersListView)
+// src/modules/characters/pages/CharactersListView.vue
 <template>
   <v-container>
     <h1 class="mb-4">Lista de Personajes</h1>
@@ -27,8 +27,8 @@
         md="4"
         lg="3"
       >
-        <v-card :to="`/characters/${character.id}`" hover elevation="2" class="d-flex flex-column fill-height">
-          <v-img :src="character.image" aspect-ratio="1" cover class="align-end text-white">
+        <v-card :to="`/characters/${character.id}`" hover elevation="10" class="d-flex flex-column fill-height rounded-xl my-5" color="indigo-lighten-4">
+          <v-img :src="character.image" aspect-ratio="1" class="align-end text-white">
             <template v-slot:placeholder>
               <v-row class="fill-height ma-0" align="center" justify="center">
                 <v-progress-circular indeterminate color="grey-lighten-2"></v-progress-circular>
