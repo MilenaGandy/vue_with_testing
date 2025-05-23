@@ -81,9 +81,6 @@ El proyecto utiliza Vitest para las pruebas unitarias.
     * Puedes abrir el archivo `coverage/index.html` en un navegador para ver un reporte detallado e interactivo de la cobertura.
     * **Nota:** El primer `--` en el comando es necesario para que `npm` pase el flag `--coverage` correctamente al script de `vitest`.
 
-3.  **Ejecutar pruebas en modo "watch" (opcional):**
-    Si solo ejecutas `npm test` (asumiendo que el script `test` en `package.json` es `vitest`), las pruebas se ejecutarán en modo watch, re-ejecutándose automáticamente cuando detecten cambios en los archivos.
-
 ## (Opcional) Build para Producción
 
 Si necesitaras generar una versión optimizada de la aplicación para despliegue:
