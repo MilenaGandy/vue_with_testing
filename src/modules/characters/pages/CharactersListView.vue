@@ -1,7 +1,23 @@
 // src/modules/characters/pages/CharactersListView.vue
 <template>
   <v-container>
-    <h1 class="mb-4">Lista de Personajes</h1>
+    <v-row align="center" class="mb-5 mt-2">
+      <v-col cols="auto" class="pr-2">
+        <v-btn 
+          color="deep-purple-accent-3" 
+          variant="tonal"
+          icon 
+          size="small"
+          @click="goBack"
+          aria-label="Volver a la página anterior"
+        >
+          <v-icon>mdi-arrow-left</v-icon>
+        </v-btn>
+      </v-col>
+      <v-col>
+        <h1 class="text-h5 text-md-h3 font-weight-bold">Lista de Personajes</h1>
+      </v-col>
+    </v-row>
 
     <div v-if="isLoading" class="text-center mt-10">
       <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
@@ -48,43 +64,28 @@
 
 <script>
 import { useCharactersStore } from '@/modules/characters/store/charactersStore';
-// Ya no es necesario mapState si no usamos this.error directamente en el template,
-// pero mantenerlo para las otras propiedades es consistente.
-// Si solo se usan 'characters' e 'isLoading', podrías quitar 'error' de mapState.
 import { mapState } from 'pinia'; 
 
 export default {
   name: 'CharactersListView',
-  // data() ya estaba vacío y es correcto así.
   computed: {
-    // Mantenemos el acceso directo a la instancia del store si se prefiere,
-    // o usamos mapState para las propiedades que sí se usan en el template.
     charactersStore() {
       return useCharactersStore();
     },
-    // Mapeamos solo las propiedades del store que la plantilla necesita directamente
     characters() {
       return this.charactersStore.characters;
     },
     isLoading() {
       return this.charactersStore.isLoadingList;
     },
-    // La propiedad computada 'error' que mapeaba a 'errorList' ya no es necesaria
-    // si el v-alert correspondiente fue eliminado y no se usa en otro lado del script.
-    // Si decides mantenerla para alguna lógica interna, está bien. Por ahora la quito para limpieza.
-    // error() {
-    //   return this.charactersStore.errorList;
-    // },
-
-    // Alternativa con mapState más concisa:
-    // ...mapState(useCharactersStore, ['characters', 'isLoadingList']),
-    // Si decides mantener 'errorList' para alguna lógica, la añadirías aquí:
-    // ...mapState(useCharactersStore, ['characters', 'isLoadingList', 'errorList'])
   },
   methods: {
     async initialLoadCharacters() {
       await this.charactersStore.fetchCharacters(1, 50);
-    }
+    },
+    goBack() {
+        this.$router.push('/');
+      }
   },
   mounted() {
     this.initialLoadCharacters();
@@ -95,5 +96,11 @@ export default {
 <style scoped>
 .v-card-title {
   word-break: break-word;
+}
+.v-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.v-card:hover {
+    transform: translateY(-4px);
 }
 </style>

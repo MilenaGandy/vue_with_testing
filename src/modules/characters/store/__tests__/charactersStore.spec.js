@@ -72,15 +72,15 @@ describe('charactersStore', () => {
 
         expect(getCharacters).toHaveBeenCalledWith(1, 20);
         
-        // Verifica que se hayan añadido 10 fakes a los reales
+       
         expect(store.characters.length).toBe(mockRealCharacters.length + 10);
         expect(store.characters[0]).toEqual(mockRealCharacters[0]); // El primer item es el real
         
-        // Verifica algunas propiedades del primer personaje fake
+        
         const firstFake = store.characters[mockRealCharacters.length];
         expect(firstFake.id).toBe("1001"); // Asumiendo que los IDs fake empiezan en "1001"
         expect(firstFake.name).toContain('Fake Character 1001');
-        expect(firstFake.image).toBe('/img/placeholder-character.webp'); // O tu path de imagen genérica
+        expect(firstFake.image).toBe('/user.png'); // O tu path de imagen genérica
 
         expect(store.errorList).toBeNull();
         expect(store.isLoadingList).toBe(false);
