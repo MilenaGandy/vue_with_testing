@@ -48,7 +48,4 @@ La funcionalidad desarrollada se centra en el módulo de "Personajes":
     * Se han creado pruebas de componentes para `CharactersListView.vue` y `CharacterDetailView.vue`, mockeando dependencias y verificando el renderizado y comportamiento básico.
     * Configuración para medir la cobertura de pruebas.
 
-9.  **Manejo de CORS en Desarrollo:**
-    * Se ha configurado un proxy en Vite (`vite.config.mjs`) para evitar problemas de CORS al realizar llamadas a la API externa desde el entorno de desarrollo local (`localhost`).
-
 ---

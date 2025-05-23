@@ -1,17 +1,18 @@
-# Prueba Técnica: Explorador de Personajes de Dragon Ball
+# Explorador de Personajes de Dragon Ball
 
-Aplicación Vue.js 3 que permite a los usuarios explorar una lista de personajes del universo Dragon Ball y ver sus detalles, consumiendo la API pública `dragonball-api.com`.
+Aplicación realizada en Vue.js 3 que permite a los usuarios explorar una lista de personajes del universo Dragon Ball y ver sus detalles a través del servicio [My JSON Server](https://my-json-server.typicode.com/) de [Typicode](https://github.com/typicode) (Fake Online REST server for teams), el cual, a su vez toma la data del archivo `db.json` ubicado en la raíz de este proyecto.
 
 ## Tech Stack Principal
 
 * **Frontend**: Vue.js 3 (Options API)
 * **UI Framework**: Vuetify 3
-* **Gestión de Estado**: Pinia
+* **Gestión de Estados**: Pinia
 * **Routing**: Vue Router
 * **Build Tool**: Vite
 * **Testing**: Vitest, Vue Test Utils, `@pinia/testing`
-* **API Externa**: [Dragon Ball API](https://web.dragonball-api.com/api-docs/)
+* **API Externa**: [Dragon Ball API with My JSON Server by Typicode](https://my-json-server.typicode.com/milenagandy/vue_with_testing/)
 * **Lenguaje**: JavaScript
+* **Node**: lts / jod -> v22.15.1
 
 ## Documentación Detallada
 
@@ -46,6 +47,12 @@ Para una comprensión completa del proyecto, por favor consulte los siguientes d
 
 ## API Externa Utilizada
 
-* **Dragon Ball API Documentation**: [https://web.dragonball-api.com/api-docs/](https://web.dragonball-api.com/api-docs/)
+* **API Externa**: [Dragon Ball API with My JSON Server by Typicode](https://my-json-server.typicode.com/milenagandy/vue_with_testing/)
+
+Se usó el servicio [My JSON Server](https://my-json-server.typicode.com/) de [Typicode](https://github.com/typicode) (Fake Online REST server for teams), el cual, a su vez toma la data del archivo `db.json` ubicado en la raíz de este proyecto.
+
+Los datos contenidos dentro del archivo `db.json` y las imágenes de los personajes fueron tomados parcialmente del proyecto [The Dragon Ball API](https://web.dragonball-api.com/).
+
+Todos los personajes de Dragon Ball, así como sus imágenes y contenido relacionado, son de propiedad intelectual de sus respectivos creadores (Akira Toriyama y Toei Animation) y el uso de dicho contenido se presenta aquí sin fines comerciales. Todos los derechos de Dragon Ball pertenecen a sus respectivos propietarios.
 
 ---
