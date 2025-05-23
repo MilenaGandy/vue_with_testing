@@ -8,7 +8,7 @@ La estructura de directorios de este proyecto ha sido diseñada para promover la
     * `vite.config.mjs`: Configuración de Vite (servidor de desarrollo, build, Vitest).
     * `package.json`: Define los scripts del proyecto, dependencias y devDependencies.
     * `README.md`: Documentación principal y punto de entrada.
-    * `.env` / `.env.example`: Archivos para variables de entorno.
+    * `.env.local` / `.env.example`: Archivos para variables de entorno.
     * `public/`: Contiene activos estáticos que se sirven directamente sin procesar por Vite (ej. `favicon.ico`).
     * `src/`: Contiene todo el código fuente de la aplicación Vue.
     * `tests/`: Configuración global para pruebas y tipos de pruebas que no se co-localizan (ej. E2E, o el `setup.js` para unitarias).
@@ -22,51 +22,65 @@ La carpeta `src/` es donde reside la lógica principal de la aplicación:
 ```plaintext
 src/
 ├── App.vue
-├── main.js
-│
-├── core/
-│   ├── assets/
-│   ├── components/
-│   │   └── AppErrorDialog.vue
-│   ├── layouts/
-│   │   └── default.vue
-│   ├── pages/
-│   │   └── HomeView.vue
-│   ├── plugins/
+├── components.d.ts
+├── core
+│   ├── assets
+│   │   ├── Dragon_Ball_Z_logo.svg
+│   │   ├── logo.png
+│   │   └── logo.svg
+│   ├── components
+│   │   ├── AppErrorDialog.vue
+│   │   ├── AppFooter.vue
+│   │   ├── HelloWorld.vue
+│   │   └── README.md
+│   ├── layouts
+│   │   ├── default.vue
+│   │   └── README.md
+│   ├── pages
+│   │   ├── HomeView.vue
+│   │   └── README.md
+│   ├── plugins
+│   │   ├── index.js
+│   │   ├── README.md
 │   │   └── vuetify.js
+│   ├── router
 │   │   └── index.js
-│   ├── router/
-│   │   └── index.js
-│   ├── services/
-│   │   └── apiClient.js
-│   ├── store/
-│   │   └── errorStore.js
-│   └── styles/
+│   ├── services
+│   │   ├── apiClient.js
+│   │   └── __tests__
+│   │       └── apiClient.spec.js
+│   ├── store
+│   │   ├── app.js
+│   │   ├── errorStore.js
+│   │   ├── index.js
+│   │   └── README.md
+│   └── styles
+│       ├── README.md
+│       ├── settings.scss
 │       └── styles.css
-│       └── settings.scss
-│
-└── modules/
-    └── characters/
-        ├── __tests__/
-        │   ├── pages/
-        │   │   └── CharactersListView.spec.js
-        │   │   └── CharacterDetailView.spec.js
-        │   ├── services/
-        │   │   └── charactersService.spec.js
-        │   ├── store/
-        │   │   └── charactersStore.spec.js
-        │   └── router/
-        │       └── index.spec.js
-        ├── components/     # (Vacío por ahora)
-        ├── pages/
-        │   └── CharactersListView.vue
-        │   └── CharacterDetailView.vue
-        ├── router/
-        │   └── index.js
-        ├── services/
-        │   └── charactersService.js
-        └── store/
-            └── charactersStore.js
+├── main.js
+├── modules
+│   └── characters
+│       ├── pages
+│       │   ├── CharacterDetailView.vue
+│       │   ├── CharactersListView.vue
+│       │   └── __test__
+│       │       ├── CharacterDetailView.spec.js
+│       │       └── CharactersListView.spec.js
+│       ├── router
+│       │   ├── index.js
+│       │   └── __tests__
+│       │       └── index.spec.js
+│       ├── services
+│       │   ├── charactersService.js
+│       │   └── __tests__
+│       │       └── charactersService.spec.js
+│       └── store
+│           ├── charactersStore.js
+│           └── __tests__
+│               └── charactersStore.spec.js
+└── pages
+    └── index.vue
 ```
 
 

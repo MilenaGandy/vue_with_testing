@@ -74,7 +74,7 @@ export const useCharactersStore = defineStore('characters', {
 
         const fakeCharacters = [];
         // ASEGÚRATE QUE ESTE BUCLE Y createFakeCharacter FUNCIONEN BIEN PARA GENERAR 10 ITEMS
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 6; i++) {
           const fakeChar = createFakeCharacter(1001 + i, genericImagePath);
           // Podrías añadir un log aquí si sigues teniendo problemas con la cantidad de fakes:
           // console.log(`Generado fake ${i}: ID ${fakeChar.id}`);

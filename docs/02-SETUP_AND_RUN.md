@@ -44,9 +44,9 @@ Sigue estos pasos para poner en marcha el proyecto:
     * Añade la siguiente variable a tu archivo `.env`:
 
         ```env
-        VITE_API_BASE_URL=/api-db
+        VITE_API_BASE_URL=https://my-json-server.typicode.com/milenagandy/vue_with_testing
         ```
-        **Nota:** El valor `/api-db` asume que estás utilizando la configuración de proxy de Vite definida en `vite.config.mjs` para redirigir las llamadas y evitar problemas de CORS con la API `https://web.dragonball-api.com/api`.
+        
 
     * Puedes encontrar un ejemplo de las variables necesarias en el archivo `.env.example` (si se proporciona uno en el proyecto).
 

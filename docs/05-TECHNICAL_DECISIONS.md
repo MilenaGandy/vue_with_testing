@@ -72,17 +72,12 @@ Este documento detalla las decisiones técnicas clave tomadas durante el desarro
     * **Integración con Vite**: Rendimiento rápido y configuración sencilla al estar construido sobre Vite.
     * **API Familiar**: Sintaxis similar a Jest, lo que facilita su adopción.
     * **Mocking y Spying**: Buenas capacidades para simular módulos (`vi.mock`) y espiar funciones (`vi.spyOn`).
-    * **Cobertura**: Integración con `v8` (o `istanbul`) para reportes de cobertura.
+    * **Cobertura**: Integración con `v8` para reportes de cobertura.
 * **Enfoque**:
     * **Pruebas Unitarias**: Para servicios y stores, mockeando sus dependencias externas.
     * **Pruebas de Componentes**: Para componentes Vue, usando `@vue/test-utils` y `@pinia/testing`, y "stubbeando" (simulando superficialmente) componentes hijos de UI (como los de Vuetify) para mantener las pruebas enfocadas y rápidas.
 
-## 10. Manejo de CORS en Desarrollo (Proxy de Vite)
-
-* **Decisión**: Configurar un proxy en `vite.config.mjs` para las llamadas a la API de Dragon Ball.
-* **Razón**: La API externa no tiene cabeceras CORS que permitan el acceso directo desde `localhost:3000`. El proxy de Vite redirige las solicitudes desde el frontend (ej. `/api-db/*`) al servidor de Vite, el cual luego hace la llamada real a la API externa. Como las llamadas de servidor a servidor no están sujetas a las mismas restricciones CORS del navegador, esto soluciona el problema para el entorno de desarrollo local.
-
-## 11. Enrutamiento (Definiciones Manuales de Rutas por Módulo)
+## 10. Enrutamiento (Definiciones Manuales de Rutas por Módulo)
 
 * **Decisión**: Aunque se exploró brevemente el enrutamiento basado en sistema de archivos, se optó por definir las rutas manualmente dentro de cada módulo de característica (`src/modules/characters/router/index.js`) y luego agregarlas en un router principal (`src/core/router/index.js`).
 * **Razón**: Proporciona un control más explícito sobre las definiciones de ruta, nombres, y metadatos, lo cual puede ser beneficioso para la claridad y el manejo de configuraciones de ruta más complejas a medida que la aplicación crece, y encaja bien con la filosofía de encapsulamiento de los módulos de características.
